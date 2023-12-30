@@ -1,0 +1,6 @@
+*.venv/*
+*results/*
+*dataset/*
+*misc/*
+*tools/*
+*__pycache__*
