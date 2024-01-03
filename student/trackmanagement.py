@@ -123,13 +123,14 @@ class Trackmanagement:
                     # your code goes here
                     track.score -= 1 / params.window
 
-            # delete old tracks
-            if track.state == "confirmed" and track.score < params.delete_threshold:
-                self.delete_track(track)
-            elif track.state in ["initialized", "tentative"] and (
-                track.P[0, 0] > params.max_P or track.P[1, 1] > params.max_P
+        for track in self.track_list:
+            if (
+                (track.state == "confirmed" and track.score < params.delete_threshold)
+                or (track.score <= 0.2 and track.state in ("tentative", "initialized"))
+                or (track.P[0, 0] > params.max_P)
+                or (track.P[1, 1] > params.max_P)
             ):
-                self.delete_track(track)
+                self.delete_track(track=track)
 
         ############
         # END student code
@@ -160,12 +161,12 @@ class Trackmanagement:
         # - set track state to 'tentative' or 'confirmed'
         ############
         if track.score < 1:
-            track.score += 1 / params.window
+            track.score += 1.0 / params.window
 
-        if track.state == "initialized" and track.score > params.gating_threshold:
-            track.state = "tentative"
-        elif track.state == "tentative" and track.score > params.confirmed_threshold:
+        if track.score >= params.confirmed_threshold:
             track.state = "confirmed"
+        else:
+            track.state = "tentative"
 
         ############
         # END student code
