@@ -50,10 +50,10 @@ import misc.params as params
 ## Set parameters and perform initializations
 
 ## Select Waymo Open Dataset file and frame numbers
-# data_filename = "training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord"  # Sequence 1
-data_filename = "training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord"  # Sequence 2
+data_filename = "training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord"  # Sequence 1
+# data_filename = "training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord"  # Sequence 2
 # data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord' # Sequence 3
-show_only_frames = [65, 100]  # show only frames in interval for debugging
+show_only_frames = [0, 200]  # show only frames in interval for debugging
 
 ## Prepare Waymo Open Dataset file for loading
 data_fullpath = os.path.join(
@@ -72,7 +72,7 @@ configs_det.use_labels_as_objects = (
 )
 
 ## Uncomment this setting to restrict the y-range in the final project
-configs_det.lim_y = [-5, 15]
+configs_det.lim_y = [-25, 25]
 
 ## Initialize tracking
 KF = Filter()  # set up Kalman filter
